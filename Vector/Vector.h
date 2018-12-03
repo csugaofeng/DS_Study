@@ -52,6 +52,7 @@ public:
 		return insert(_size, e);
 	}
 	Rank insert(Rank r, T const* e, Rank lo, Rank hi);
+	T remove(Rank r);
 	Rank remove(Rank lo, Rank hi);
 	void unsort(Rank lo, Rank hi);
 	void bubbleSort(Rank lo, Rank hi);//√∞≈›≈≈–Ú
@@ -142,7 +143,7 @@ template <typename T> void Vector<T>::shrink()
 		return;
 	T* oldElem = _elem;
 	_elem = new T[_capacity >>= 1];
-	for (int i = 1; i < _size; i++)
+	for (int i = 0; i < _size; i++)
 		_elem[i] = oldElem[i];
 	delete[] oldElem;
 }
@@ -172,15 +173,24 @@ template <typename T> Rank Vector<T>::insert(Rank r, T const* e, Rank lo, Rank h
 	return r;
 }
 
+template<typename T>
+T Vector<T>::remove(Rank r)
+{
+	T e = _elem[r];
+	remove(r, r + 1);
+	return e;
+}
+
 template <typename T> Rank Vector<T>::remove(Rank lo, Rank hi)
 {
 	if (lo == hi)
 		return 0;
 	while (hi < _size)
 	{
-		_elem[lo] = _elem[hi];
-		lo++;
-		hi++;
+		//_elem[lo] = _elem[hi];
+		//lo++;
+		//hi++;
+		_elem[lo++] = _elem[hi++];
 	}
 	_size = lo;
 	shrink();

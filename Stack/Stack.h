@@ -1,6 +1,6 @@
 #pragma once
 #include "../Vector/Vector.h"
-template <typename T> class Stack : public Vector<T>
+template <typename T> class Stack : protected Vector<T>
 {
 public:
 	void push(T const& e)
